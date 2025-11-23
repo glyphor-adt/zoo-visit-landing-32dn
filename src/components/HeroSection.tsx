@@ -3,41 +3,52 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 interface HeroSectionProps {
-  zooName: string;
-  welcomeMessage: string;
+  title: string;
+  description: string;
   imageUrl: string;
+  buttonText: string;
+  buttonLink: string;
+  className?: string;
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
-  zooName,
-  welcomeMessage,
+  title,
+  description,
   imageUrl,
+  buttonText,
+  buttonLink,
+  className,
 }) => {
   return (
-    <div className="relative bg-background text-foreground">
-      <div className="absolute inset-0">
-        <img
-          src={imageUrl}
-          alt={`Welcome to ${zooName}`}
-          className="h-full w-full object-cover opacity-50 dark:opacity-30"
-        />
-      </div>
-      <div className="relative px-4 py-24 sm:py-32 lg:py-40">
-        <div className="mx-auto max-w-7xl text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-primary sm:text-5xl lg:text-6xl">
-            Welcome to {zooName}
-          </h1>
-          <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            {welcomeMessage}
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button variant="primary" size="lg">
-              Explore the Animals
+    <section
+      className={cn(
+        'relative py-20 bg-background text-foreground',
+        className
+      )}
+    >
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="text-center md:text-left">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+              {title}
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground mb-8">
+              {description}
+            </p>
+            <Button size="lg" asChild>
+              <a href={buttonLink}>{buttonText}</a>
             </Button>
+          </div>
+          <div className="relative">
+            <img
+              src={imageUrl}
+              alt="Zoo animal"
+              className="rounded-lg shadow-lg w-full h-auto object-cover"
+            />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
